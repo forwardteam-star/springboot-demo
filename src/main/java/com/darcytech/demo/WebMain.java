@@ -11,6 +11,7 @@ import org.springframework.retry.annotation.RetryConfiguration;
 
 import com.alibaba.nacos.client.config.utils.SnapShotSwitch;
 import com.darcytech.demo.nacos.NacosConfigApplicationInitializer;
+import com.darcytech.demo.spring.beanLifeCycle.User;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @EnableRetry
@@ -31,6 +32,11 @@ public class WebMain {
     @ConfigurationProperties("demo")
     public Demo demo () {
         return new Demo();
+    }
+
+    @Bean(initMethod = "start",destroyMethod = "stop")
+    public User user(){
+        return new User();
     }
 
 }
